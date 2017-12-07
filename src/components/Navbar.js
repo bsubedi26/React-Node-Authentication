@@ -49,7 +49,19 @@ class NavbarCmp extends React.Component {
                 </li>    
               )
             )}
-            
+
+            <li className="nav-item dropdown pointer">
+              <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown Test
+              </a>
+              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a className="dropdown-item">Action</a>
+                <a className="dropdown-item">Another action</a>
+                <div className="dropdown-divider"></div>
+                <a className="dropdown-item">Something else here</a>
+              </div>
+            </li>
+      
           </ul>
 
           <form className="form-inline my-2 my-lg-0">
