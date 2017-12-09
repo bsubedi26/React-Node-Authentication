@@ -14,9 +14,9 @@ function Routes() {
       <Container>
         <Header />
         <Route exact path="/" component={Home} />
-        <Route exact path='/login' component={Login}/>
-        <Route exact path='/signup' component={Signup}/>
-        
+        <Route exact path='/login' component={Login} />
+        <Route exact path='/signup' component={Signup} />
+
         <PrivateRoute path='/settings' component={Settings} />
       </Container>
     </Router>

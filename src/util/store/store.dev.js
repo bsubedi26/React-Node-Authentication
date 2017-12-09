@@ -4,8 +4,12 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import rootReducer from 'reducers'
 import promiseMiddleware from 'redux-promise-middleware'
 
+
 export default function configureStore(initialState = {}) {
-  const middlewares = [ ReduxThunk, promiseMiddleware() ]
+  const middlewares = [
+    ReduxThunk,
+    promiseMiddleware(),
+  ]
   const enhancers = [
     applyMiddleware(...middlewares),
     // other store enhancers if any

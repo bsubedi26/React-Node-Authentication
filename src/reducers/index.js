@@ -5,7 +5,7 @@ import { reducer as form } from 'redux-form'
 const rootReducer = combineReducers({
   auth,
   
-  form
+  form,
 })
 
 export default rootReducer
