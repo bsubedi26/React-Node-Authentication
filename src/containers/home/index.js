@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 class Home extends React.Component {
+
   render() {
     return (
       <div>
@@ -11,7 +12,7 @@ class Home extends React.Component {
           <hr className="my-4" />
           <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
           <p className="lead">
-            <button className="btn btn-primary btn-lg">Learn more</button>
+            <a href="/auth/github"><button className="btn btn-primary btn-lg">Learn more</button></a>
           </p>
         </div>
       </div>
@@ -19,4 +20,4 @@ class Home extends React.Component {
   }
 }
 
-export default connect(null)(Home)
+export default Home

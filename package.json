@@ -5,6 +5,7 @@
   "dependencies": {
     "@feathersjs/client": "^3.1.1",
     "bootstrap": "^4.0.0-beta.2",
+    "formik": "^0.10.5",
     "npm-run-all": "^4.1.2",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
@@ -13,7 +14,6 @@
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
     "redux": "^3.7.2",
-    "redux-form": "^7.2.0",
     "redux-promise-middleware": "^4.4.2",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",

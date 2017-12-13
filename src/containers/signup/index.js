@@ -1,8 +1,7 @@
 import React from 'react'
-import FormContainer from './FormContainer'
-import { connect } from 'react-redux'
-import { getFormValues } from 'redux-form'
 import { actions as AuthActions } from 'reducers/auth'
+import FormContainer from './form'
+import { connect } from 'react-redux'
 
 class Signup extends React.Component {
   state = {
@@ -10,29 +9,31 @@ class Signup extends React.Component {
     errorMessage: null
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault()
-    const { dispatch, formValues, history } = this.props
+  handleSubmit = (formValues) => {
+    const { dispatch, history } = this.props
 
-    dispatch(AuthActions.signup(formValues))
+    return dispatch(AuthActions.signup(formValues))
     .then(res => {
       console.log('SUCCESSFUL SIGNUP ', res)
       this.setState({ error: false, errorMessage: null })
       history.push('/login')
+      return res
     })
     .catch(err => {
-      console.log(err)
+      console.log('.catch ', err)
       this.setState({ error: true, errorMessage: err.message })
+      return Promise.reject(err)
     })
     
   }
 
-  renderErrorAlert = (message) => 
-    (
+  renderErrorAlert = (message) => {
+    return (
       <div className="alert alert-danger" role="alert">
         { message }
       </div>
     )
+  }
 
   render() {
     return (
@@ -52,8 +53,5 @@ class Signup extends React.Component {
   }
 }
 
-const mapState = (state) => ({
-  formValues: getFormValues('signup')(state),
-})
 
-export default connect(mapState)(Signup)
+export default connect(null)(Signup)

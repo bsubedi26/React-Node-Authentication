@@ -1,8 +1,7 @@
 import React from 'react'
-import FormContainer from './FormContainer'
-import { getFormValues } from 'redux-form'
-import { connect } from 'react-redux'
+import FormContainer from './form'
 import { actions as AuthActions } from 'reducers/auth'
+import { connect } from 'react-redux'
 
 class Login extends React.Component {
   state = {
@@ -10,12 +9,12 @@ class Login extends React.Component {
     errorMessage: null
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault()
-    const { dispatch, formValues, history } = this.props
+  handleSubmit = (formValues) => {
+    const { dispatch, history } = this.props
     const credentials = { ...formValues, strategy: 'local' }
+    // const credentials = { ...formValues, strategy: 'facebook' }
     
-    dispatch(AuthActions.authenticate(credentials))
+    return dispatch(AuthActions.authenticate(credentials))
     .then(res => {
       console.log('SUCCESSFUL LOGIN ', res)
       this.setState({ error: false, errorMessage: null })
@@ -24,6 +23,7 @@ class Login extends React.Component {
     .catch(err => {
       console.log(err)
       this.setState({ error: true, errorMessage: err.message })
+      return Promise.reject(err)
     })
     
   }
@@ -44,6 +44,15 @@ class Login extends React.Component {
           { this.state.error ? this.renderErrorAlert(this.state.errorMessage) : null }
           <hr className="my-4" />
           <FormContainer handleSubmit={this.handleSubmit} />
+
+
+          {/* <a href="http://localhost:3030/auth/github"> */}
+          <a href="/auth/github">
+            <button className="mt-3 btn btn-default pointer">
+              Login With Github
+              <i className="fa fa-github fa-lg m-2" aria-hidden="true"></i>
+            </button>
+          </a>
         </div>
       </div>
    
@@ -51,9 +60,4 @@ class Login extends React.Component {
   }
 }
 
-
-const mapState = (state) => ({
-  formValues: getFormValues('login')(state),
-})
-
-export default connect(mapState)(Login)
+export default connect(null)(Login)

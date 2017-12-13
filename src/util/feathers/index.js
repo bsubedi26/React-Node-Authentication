@@ -9,7 +9,7 @@ import fRest from '@feathersjs/client/dist/rest';
 // import fRest from '@feathersjs/rest-client';
 
 
-const HOST = process.env.NODE_ENV === 'production' ? 'https://my-server.herokuapp.com' : 'http://localhost:3031'
+const HOST = process.env.NODE_ENV === 'production' ? '//feathers-example.herokuapp.com' : 'http://localhost:3030'
 
 // const socket = io(HOST);
 const rest = fRest(HOST);

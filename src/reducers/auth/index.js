@@ -1,5 +1,4 @@
 import initialState from './state'
-import { startSubmit, stopSubmit } from 'redux-form'
 import feathers from 'util/feathers'
 const user = feathers.service('user')
 
@@ -16,31 +15,18 @@ const types = {
 export const actions = {
   signup(payload) {
     return dispatch => {
-      dispatch(startSubmit('signup'))
-
       return dispatch({ type: types.SIGNUP, payload: user.create(payload) })
-      .then(response => {
-        dispatch(stopSubmit('signup'))
-        return Promise.resolve(response)      
-      })
-      .catch(error => {
-        dispatch(stopSubmit('signup'))
-        return Promise.reject(error)
-      })
     }        
   },
   authenticate(payload) {
     return dispatch => {
-      dispatch(startSubmit('login'))
 
       return dispatch({ type: types.AUTHENTICATE, payload: feathers.authenticate(payload) })
       .then(response => {
-        dispatch(stopSubmit('login'))
         dispatch({ type: types.VERIFY_JWT, payload: feathers.passport.verifyJWT(response.value.accessToken)});
         return Promise.resolve(response)      
       })
       .catch(error => {
-        dispatch(stopSubmit('login'))
         return Promise.reject(error)
       })
     }        
