@@ -74,8 +74,7 @@ class NavbarCmp extends React.Component {
           <form className="form-inline mr-5">
             {/* <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" /> */}
             {
-              // this.props.userId ?
-              window.localStorage.getItem('feathers-jwt') ?
+              this.props.userId ?
                 this.renderLoggedInDropDown()
                 // <button onClick={this.handleLogout} className="btn btn-outline-success my-2 my-sm-0">Logout</button>
                 : null

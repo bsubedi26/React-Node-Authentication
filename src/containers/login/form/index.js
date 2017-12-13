@@ -1,4 +1,3 @@
-import React from 'react';
 import { withFormik } from 'formik';
 import validate from './validate';
 import FormFields from './fields';

@@ -3,7 +3,7 @@ import ReduxThunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import rootReducer from 'reducers'
 import promiseMiddleware from 'redux-promise-middleware'
-
+import { persistStore } from 'redux-persist'
 
 export default function configureStore(initialState = {}) {
   const middlewares = [
@@ -20,7 +20,7 @@ export default function configureStore(initialState = {}) {
       // Specify here other options if needed
     }
   )
-  const store = createStore(rootReducer, initialState, composeEnhancers(...enhancers))
+  let store = createStore(rootReducer, initialState, composeEnhancers(...enhancers))
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
     module.hot.accept('reducers', () => {
@@ -30,5 +30,8 @@ export default function configureStore(initialState = {}) {
     })
   }
 
-  return store
+  let persistor = persistStore(store)
+  
+
+  return { store, persistor }
 }

@@ -4,7 +4,7 @@ const user = feathers.service('user')
 
 const types = {
   AUTHENTICATE: 'AUTH/AUTHENTICATE',
-  RESET: 'AUTH/RESET',
+  AUTH_RESET: 'AUTH/RESET',
 
   SIGNUP: 'AUTH/SIGNUP',
   VERIFY_JWT: 'AUTH/VERIFY_JWT',
@@ -33,7 +33,9 @@ export const actions = {
   },
   logout() {
     return dispatch => {
-      dispatch({ type: types.RESET })
+      dispatch({ type: types.AUTH_RESET })
+      window.localStorage.removeItem('persist:primary')
+      // window.localStorage.clear()
       return dispatch({ type: types.LOGOUT, payload: feathers.logout() })
     }
   }
@@ -85,7 +87,7 @@ export default function reducer (state = initialState, action) {
       }
     }
 
-    case types.RESET: {
+    case types.AUTH_RESET: {
       return {
         ...initialState
       }
