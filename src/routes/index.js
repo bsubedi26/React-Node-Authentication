@@ -2,7 +2,7 @@ import React from 'react'
 import { Home, Login, Signup, Settings } from 'containers'
 
 import { Header } from 'components'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { HashRouter as Router, Route } from 'react-router-dom'
 import styled from 'styled-components'
 import PrivateRoute from './private'
 
