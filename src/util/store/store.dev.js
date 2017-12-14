@@ -5,15 +5,17 @@ import rootReducer from 'reducers'
 import promiseMiddleware from 'redux-promise-middleware'
 import { persistStore } from 'redux-persist'
 
+const middlewares = [
+  ReduxThunk,
+  promiseMiddleware(),
+]
+const enhancers = [
+  applyMiddleware(...middlewares),
+  // other store enhancers if any
+]
+
 export default function configureStore(initialState = {}) {
-  const middlewares = [
-    ReduxThunk,
-    promiseMiddleware(),
-  ]
-  const enhancers = [
-    applyMiddleware(...middlewares),
-    // other store enhancers if any
-  ]
+
   const composeEnhancers = composeWithDevTools(
     {
       // other compose enhancers if any
