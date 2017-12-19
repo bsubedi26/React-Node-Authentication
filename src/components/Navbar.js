@@ -12,7 +12,7 @@ class NavbarCmp extends React.Component {
       { name: 'Home', path: '/' },
       { name: 'Login', path: '/login' },
       { name: 'Signup', path: '/signup' },
-      { name: 'Account Settings', path: '/settings' },
+      { name: 'Account Settings', path: '/settings/profile' },
     ],
   };
 

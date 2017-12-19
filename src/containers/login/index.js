@@ -19,7 +19,7 @@ class Login extends React.Component {
     .then(res => {
       console.log('SUCCESSFUL LOGIN ', res)
       this.setState({ error: false, errorMessage: null })
-      history.push('/settings')
+      history.push('/settings/profile')
     })
     .catch(err => {
       console.log(err)
