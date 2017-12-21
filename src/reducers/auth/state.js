@@ -5,6 +5,7 @@ const state = {
   accessToken: null,
   email: null,
   id: null,
+  oAuth: {},
   decodedToken: {
     aud: null,
     exp: null,

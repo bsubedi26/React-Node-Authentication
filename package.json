@@ -2,7 +2,6 @@
   "name": "react-node-authentication",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://bsubedi26.github.io/React-Node-Authentication",
   "dependencies": {
     "@feathersjs/client": "^3.1.1",
     "animate-css-styled-components": "^0.0.20",

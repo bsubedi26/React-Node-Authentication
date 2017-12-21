@@ -28,12 +28,38 @@ class NavbarCmp extends React.Component {
     await dispatch(AuthActions.logout())
     history.push('/')
   }
+  
   renderLoggedInDropDown = () => {
+    if (this.props.auth.email !== null) {
+
+      return (
+        <ul className="navbar-nav mr-auto">
+          <li className="nav-item dropdown pointer">
+            <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i className="fa fa-user-circle"></i>
+            </a>
+            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a className="dropdown-item">Profile</a>
+              <a className="dropdown-item">Settings</a>
+              <div className="dropdown-divider"></div>
+              <a onClick={this.handleLogout} className="dropdown-item">Sign out</a>
+            </div>
+          </li>
+        </ul>
+      )
+    }
+    else {
+      return null;
+    }
+  }
+
+  
+  renderOAuthLogin = () => {
     return (
       <ul className="navbar-nav mr-auto">
         <li className="nav-item dropdown pointer">
           <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i className="fa fa-user-circle"></i>
+            <img width="16" height="16" src={this.props.auth.oAuth.github.profile.photos[0].value} alt="github avatar" />
           </a>
           <div className="dropdown-menu" aria-labelledby="navbarDropdown">
             <a className="dropdown-item">Profile</a>
@@ -45,6 +71,7 @@ class NavbarCmp extends React.Component {
       </ul>
     )
   }
+
 
   render() {
     return (
@@ -73,11 +100,13 @@ class NavbarCmp extends React.Component {
 
           <form className="form-inline mr-5">
             {/* <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" /> */}
+
+            {/* IF THE OAUTH OBJECT (GITHUB/FACEBOOK/GOOGLE) IS EMPTY CHECK LOCAL JWT AUTH */}
             {
-              this.props.userId ?
+              (Object.keys(this.props.auth.oAuth).length === 0) ?
                 this.renderLoggedInDropDown()
-                // <button onClick={this.handleLogout} className="btn btn-outline-success my-2 my-sm-0">Logout</button>
-                : null
+                :
+                this.renderOAuthLogin()
             }
           </form>
         </div>
@@ -87,7 +116,7 @@ class NavbarCmp extends React.Component {
 }
 
 const mapState = state => ({
-  userId: state.auth.id
+  auth: state.auth
 })
 
 export default withRouter(connect(mapState)(NavbarCmp))
