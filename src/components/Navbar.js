@@ -2,17 +2,23 @@ import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { actions as AuthActions } from 'reducers/auth'
 import { connect } from 'react-redux'
+import styled from 'styled-components'
+
+
+const NavLink = styled.li`
+  background-color: ${ prop =>  prop.activeTab ? 'beige' : '' };
+`
 
 class NavbarCmp extends React.Component {
 
   state = {
     isOpen: false,
-    authLinks: [],
+    activeTab: this.props.location.pathname,
     guestLinks: [
       { name: 'Home', path: '/' },
-      { name: 'Login', path: '/login' },
-      { name: 'Signup', path: '/signup' },
-      { name: 'Account Settings', path: '/settings/profile' },
+      { name: 'React', path: '/forum/react' },
+      { name: 'Redux', path: '/forum/redux' },
+      { name: 'NodeJS', path: '/forum/nodejs' },
     ],
   };
 
@@ -21,62 +27,16 @@ class NavbarCmp extends React.Component {
       isOpen: !this.state.isOpen
     });
   }
-
-  handleLogout = async (e) => {
-    e.preventDefault()
-    const { dispatch, history } = this.props
-    await dispatch(AuthActions.logout())
-    history.push('/')
-  }
   
-  renderLoggedInDropDown = () => {
-    if (this.props.auth.email !== null) {
 
-      return (
-        <ul className="navbar-nav mr-auto">
-          <li className="nav-item dropdown pointer">
-            <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i className="fa fa-user-circle"></i>
-            </a>
-            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a className="dropdown-item">Profile</a>
-              <a className="dropdown-item">Settings</a>
-              <div className="dropdown-divider"></div>
-              <a onClick={this.handleLogout} className="dropdown-item">Sign out</a>
-            </div>
-          </li>
-        </ul>
-      )
-    }
-    else {
-      return null;
-    }
+  setActive(path) {
+    this.setState({ activeTab: path })
   }
-
-  
-  renderOAuthLogin = () => {
-    return (
-      <ul className="navbar-nav mr-auto">
-        <li className="nav-item dropdown pointer">
-          <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img width="16" height="16" src={this.props.auth.oAuth.github.profile.photos[0].value} alt="github avatar" />
-          </a>
-          <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a className="dropdown-item">Profile</a>
-            <a className="dropdown-item">Settings</a>
-            <div className="dropdown-divider"></div>
-            <a onClick={this.handleLogout} className="dropdown-item">Sign out</a>
-          </div>
-        </li>
-      </ul>
-    )
-  }
-
 
   render() {
     return (
       <nav className="navbar navbar-expand-md navbar-light">
-        <Link to="/" className="navbar-brand">Auth</Link>
+        <Link to="/" className="navbar-brand">ReForum</Link>
         {/* HAMBURGER MENU TOGGLER FOR MOBILE */}
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon" />
@@ -90,9 +50,9 @@ class NavbarCmp extends React.Component {
              */}
             { this.state.guestLinks.map((link) => 
               (
-                <li className="nav-item mx-2" key={link.name}>
+                <NavLink activeTab={this.state.activeTab === link.path} onClick={this.setActive.bind(this, link.path)} className="nav-item mx-2" key={link.name}>
                   <Link className="nav-link" to={link.path}>{link.name}</Link>
-                </li>    
+                </NavLink>    
               )
             )}
       
@@ -101,13 +61,6 @@ class NavbarCmp extends React.Component {
           <form className="form-inline mr-5">
             {/* <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" /> */}
 
-            {/* IF THE OAUTH OBJECT (GITHUB/FACEBOOK/GOOGLE) IS EMPTY CHECK LOCAL JWT AUTH */}
-            {
-              (Object.keys(this.props.auth.oAuth).length === 0) ?
-                this.renderLoggedInDropDown()
-                :
-                this.renderOAuthLogin()
-            }
           </form>
         </div>
       </nav>
