@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom'
 import { actions as AuthActions } from 'reducers/auth'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-
+import { push, getLocation } from 'react-router-redux'
 
 const NavLink = styled.li`
   background-color: ${ prop =>  prop.activeTab ? 'beige' : '' };
@@ -15,12 +15,16 @@ class NavbarCmp extends React.Component {
     isOpen: false,
     activeTab: this.props.location.pathname,
     guestLinks: [
-      { name: 'Home', path: '/' },
+      { name: 'Home', path: '/home' },
       { name: 'React', path: '/forum/react' },
       { name: 'Redux', path: '/forum/redux' },
       { name: 'NodeJS', path: '/forum/nodejs' },
     ],
   };
+  
+  goRoute(path) {
+    this.props.dispatch(push(path))
+  }
 
   toggle = () => {
     this.setState({
@@ -32,13 +36,8 @@ class NavbarCmp extends React.Component {
     e.preventDefault()
     const { dispatch, history } = this.props
     await dispatch(AuthActions.logout())
-    history.push('/')
+    dispatch(push('/home'))
   }
-  
-  setActive(path) {
-    this.setState({ activeTab: path })
-  }
-
   
   renderAuthenticated = () => {
     return (
@@ -59,20 +58,19 @@ class NavbarCmp extends React.Component {
   renderUnAuthenticated() {
     return (
       <div>
-        <Link to="/login"><span>Login</span></Link>
-        <span className="mx-1">/</span>
-        <Link to="/signup"><span>Register</span></Link>
+        <a onClick={this.goRoute.bind(this, '/login')} className="btn btn-outline-primary pointer mx-1 nav-user"><span>Login</span></a>
+        <a onClick={this.goRoute.bind(this, '/signup')} className="btn btn-outline-info pointer mx-1 nav-user"><span>Signup</span></a>
       </div>
     )
   }
 
 
   render() {
-    const { auth } = this.props
+    const { auth, routerLocation } = this.props
 
     return (
       <nav className="navbar navbar-expand-md navbar-light">
-        <Link to="/" className="navbar-brand">ReForum</Link>
+        <a onClick={this.goRoute.bind(this, '/home')} className="navbar-brand pointer">ReForum</a>
         {/* HAMBURGER MENU TOGGLER FOR MOBILE */}
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon" />
@@ -80,14 +78,10 @@ class NavbarCmp extends React.Component {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
-            {/* <li className="nav-item active">
-              <a className="nav-link">Home <span className="sr-only">(current)</span></a>
-            </li>
-             */}
             { this.state.guestLinks.map((link) => 
               (
-                <NavLink activeTab={this.state.activeTab === link.path} onClick={this.setActive.bind(this, link.path)} className="nav-item mx-2" key={link.name}>
-                  <Link className="nav-link" to={link.path}>{link.name}</Link>
+                <NavLink activeTab={routerLocation.pathname.includes(link.path)} onClick={this.goRoute.bind(this, link.path)} className="nav-item pointer mx-2" key={link.name}>
+                  <a className="nav-link">{link.name}</a>
                 </NavLink>    
               )
             )}
@@ -104,7 +98,8 @@ class NavbarCmp extends React.Component {
 }
 
 const mapState = state => ({
-  auth: state.auth
+  auth: state.auth,
+  routerLocation: getLocation(state)
 })
 
 export default withRouter(connect(mapState)(NavbarCmp))

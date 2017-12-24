@@ -2,6 +2,7 @@ import React from 'react'
 import { actions as AuthActions } from 'reducers/auth'
 import FormContainer from './form'
 import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 import { FadeIn } from 'animate-css-styled-components';
 
 class Signup extends React.Component {
@@ -11,13 +12,13 @@ class Signup extends React.Component {
   }
 
   handleSubmit = (formValues) => {
-    const { dispatch, history } = this.props
+    const { dispatch } = this.props
 
     return dispatch(AuthActions.signup(formValues))
     .then(res => {
       console.log('SUCCESSFUL SIGNUP ', res)
       this.setState({ error: false, errorMessage: null })
-      history.push('/login')
+      dispatch(push('/login'))
       return res
     })
     .catch(err => {

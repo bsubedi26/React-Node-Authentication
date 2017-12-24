@@ -5,9 +5,16 @@ import rootReducer from 'reducers'
 import promiseMiddleware from 'redux-promise-middleware'
 import { persistStore } from 'redux-persist'
 
+import createHistory from 'history/createBrowserHistory'
+import { routerMiddleware } from 'react-router-redux'
+
+export const history = createHistory()
+const routeMiddleware = routerMiddleware(history)
+
 const middlewares = [
   ReduxThunk,
   promiseMiddleware(),
+  routeMiddleware
 ]
 const enhancers = [
   applyMiddleware(...middlewares),

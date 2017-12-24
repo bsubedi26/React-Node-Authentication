@@ -21,3 +21,6 @@ body {
   cursor: pointer;
 }
 
+.nav-user:hover {
+  color: white !important;
+}

@@ -16,7 +16,7 @@ const { store, persistor } = configureStore()
 render(
   <Provider store={store}>
     <PersistGate persistor={persistor}>
-      <Routes />
+        <Routes />
     </PersistGate>
   </Provider>,
   document.getElementById('root')

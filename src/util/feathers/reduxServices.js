@@ -1,6 +1,6 @@
-import reduxifyServices from 'feathers-redux';
+import fRedux from 'feathers-redux';
 
 export default (app) => {
-    const services = reduxifyServices(app, ['task', 'user', 'message']);
+    const services = fRedux(app, ['user', 'forum', 'comment']);
     return services;
 };

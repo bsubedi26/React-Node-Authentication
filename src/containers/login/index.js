@@ -2,7 +2,8 @@ import React from 'react'
 import FormContainer from './form'
 import { actions as AuthActions } from 'reducers/auth'
 import { connect } from 'react-redux'
-import { FadeIn } from 'animate-css-styled-components';
+import { FadeIn } from 'animate-css-styled-components'
+import { push } from 'react-router-redux'
 
 class Login extends React.Component {
   state = {
@@ -19,7 +20,7 @@ class Login extends React.Component {
     .then(res => {
       console.log('SUCCESSFUL LOGIN ', res)
       this.setState({ error: false, errorMessage: null })
-      history.push('/forum/react')
+      dispatch(push('/forum/react'))
     })
     .catch(err => {
       console.log(err)

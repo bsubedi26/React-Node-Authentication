@@ -1,43 +1,40 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import { connect } from 'react-redux'
+import { services } from 'util/feathers'
+import { Title, LineText } from './common'
 
-const Title = styled.h3`
-  font-size: 1.1rem;
-`
-
-const LineText = styled.h5`
-  font-size: 0.8rem;
-  opacity: 0.7;
-`
-
-const threadMock = [
-  {
-    id: 1,
-    title: 'Thank you for post',
-    author: 'Dave Smith',
-    github: 'DavSmithCodes',
-    created_at: new Date(),
-    favorites: 11,
-    opinions: 5
-  },
-  {
-    id: 2,
-    title: 'Second post',
-    author: 'Second Smith',
-    github: 'SecondCodes',
-    created_at: new Date(),
-    favorites: 0,
-    opinions: 20
-  },
-]
 
 class ForumPage extends React.Component {
-  componentDidMount() {
-    console.log(this)
+  state = {
+    posts: []
   }
+  componentDidMount() {
+    const { topic } = this.props.match.params
+    this.dispatchFind(topic)
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.location.pathname !== this.props.location.pathname) {
+      const { topic } = nextProps.match.params
+      this.dispatchFind(topic)
+    }
+  }
+
+  dispatchFind(topic) {
+    const { dispatch } = this.props
+
+    dispatch(services.forum.find({ query: { topic } }))
+    .then(({ action }) => {
+      // console.log('.then ', action)
+      this.setState({
+        posts: action.payload.data
+      })
+    })
+    .catch(err => console.log(err))
+  }
+
   render() {
-    const topic = this.props.match.params.name
+    const { topic } = this.props.match.params
 
     return (
       <div className="row mx-auto w-75 mt-4">
@@ -50,11 +47,11 @@ class ForumPage extends React.Component {
 
             <div className="list-group list-group-flush">
               {
-                threadMock.map(item => {
+                this.state.posts.map(item => {
                   return (
                     <div key={item.id} className="list-group-item">
-                      <Link to={`/forum/${topic}/${item.id}`}><Title className="text-left mb-3">{item.title}</Title></Link>
-                      <LineText className="text-left">{item.author} - <i className="fa fa-github m-1"></i> {item.github}</LineText>
+                      <Link to={`/forum/${topic}/individual/${item.id}`}><Title className="text-left mb-3">{item.title}</Title></Link>
+                      <LineText className="text-left">ID: {item.creator_id} - <i className="fa fa-github m-1"></i> {item.creator_email}</LineText>
                       <LineText className="text-left">
                         
                         <span className="mr-2">7 months ago</span>
@@ -70,13 +67,13 @@ class ForumPage extends React.Component {
           </div>
         </div>
 
-        <div className="col-2">
+        <Link to={this.props.location.pathname + '/create'} className="col-2">
             <button className="btn btn-outline-info pointer">New Discussion</button>
-        </div>
+        </Link>
         
       </div>
     )
   }
 }
 
-export default ForumPage
+export default connect(null)(ForumPage)
