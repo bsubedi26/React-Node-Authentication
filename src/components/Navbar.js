@@ -28,12 +28,48 @@ class NavbarCmp extends React.Component {
     });
   }
   
-
+  handleLogout = async (e) => {
+    e.preventDefault()
+    const { dispatch, history } = this.props
+    await dispatch(AuthActions.logout())
+    history.push('/')
+  }
+  
   setActive(path) {
     this.setState({ activeTab: path })
   }
 
+  
+  renderAuthenticated = () => {
+    return (
+      <ul className="navbar-nav mr-auto">
+        <li className="nav-item dropdown pointer">
+          <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span>{ this.props.auth.email }</span>
+          </a>
+          <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a onClick={this.handleLogout} className="dropdown-item">Sign out</a>
+          </div>
+        </li>
+      </ul>
+    )
+  }
+
+  
+  renderUnAuthenticated() {
+    return (
+      <div>
+        <Link to="/login"><span>Login</span></Link>
+        <span className="mx-1">/</span>
+        <Link to="/signup"><span>Register</span></Link>
+      </div>
+    )
+  }
+
+
   render() {
+    const { auth } = this.props
+
     return (
       <nav className="navbar navbar-expand-md navbar-light">
         <Link to="/" className="navbar-brand">ReForum</Link>
@@ -59,8 +95,7 @@ class NavbarCmp extends React.Component {
           </ul>
 
           <form className="form-inline mr-5">
-            {/* <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" /> */}
-
+            { auth.email ? this.renderAuthenticated() : this.renderUnAuthenticated() }
           </form>
         </div>
       </nav>

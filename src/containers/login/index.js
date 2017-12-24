@@ -2,7 +2,7 @@ import React from 'react'
 import FormContainer from './form'
 import { actions as AuthActions } from 'reducers/auth'
 import { connect } from 'react-redux'
-import { Wobble, FadeIn, FadeInLeft } from 'animate-css-styled-components';
+import { FadeIn } from 'animate-css-styled-components';
 
 class Login extends React.Component {
   state = {
@@ -19,7 +19,7 @@ class Login extends React.Component {
     .then(res => {
       console.log('SUCCESSFUL LOGIN ', res)
       this.setState({ error: false, errorMessage: null })
-      history.push('/settings/profile')
+      history.push('/forum/react')
     })
     .catch(err => {
       console.log(err)
@@ -46,9 +46,9 @@ class Login extends React.Component {
             
             { this.state.error ? this.renderErrorAlert(this.state.errorMessage) : null }
             <hr className="my-4" />
-            <FadeInLeft>
+            <FadeIn>
               <FormContainer handleSubmit={this.handleSubmit} />
-            </FadeInLeft>
+            </FadeIn>
 
             {/* <a href="http://localhost:3030/auth/github"> */}
             <a href="/auth/github">

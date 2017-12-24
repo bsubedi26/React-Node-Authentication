@@ -21,6 +21,7 @@ function Routes() {
         {/* <Route path=":forum/new_discussion" component={NewDiscussion} /> */}
         {/* <Route path="user/:username" component={UserProfile} /> */}
 
+        <Route exact path='/login' component={Login} />
         <Route exact path='/signup' component={Signup} />
 
         <PrivateRoute path='/settings' component={Settings} />

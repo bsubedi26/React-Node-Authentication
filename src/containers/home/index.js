@@ -1,5 +1,5 @@
 import React from 'react'
-import { FadeInLeft } from 'animate-css-styled-components'
+import { FadeIn } from 'animate-css-styled-components'
 import { connect } from 'react-redux'
 import { actions as AuthActions } from 'reducers/auth'
 
@@ -18,7 +18,7 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        <FadeInLeft>
+        <FadeIn>
           <div className="jumbotron animated fadeInLeft">
             <h1 className="display-3">Hello, world!</h1>
             <p className="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
@@ -29,7 +29,7 @@ class Home extends React.Component {
               <button onClick={this.handleVerify} className="btn btn-info btn-lg pointer hvr-float-shadow hvr-bounce-to-right">Verify</button>
             </p>
           </div>
-        </FadeInLeft>
+        </FadeIn>
       </div>
     )
   }

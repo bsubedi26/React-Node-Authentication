@@ -2,7 +2,7 @@ import React from 'react'
 import { actions as AuthActions } from 'reducers/auth'
 import FormContainer from './form'
 import { connect } from 'react-redux'
-import { FadeInDown, FadeOut } from 'animate-css-styled-components';
+import { FadeIn } from 'animate-css-styled-components';
 
 class Signup extends React.Component {
   state = {
@@ -39,17 +39,18 @@ class Signup extends React.Component {
   render() {
     return (
       <div>
-        <FadeInDown>
+        <FadeIn>
           <div className="jumbotron">
             <h1 className="display-3">Signup Below!</h1>
             <p className="lead">Join the community to access featured content and information.</p>
 
             { this.state.error ? this.renderErrorAlert(this.state.errorMessage) : null }
             <hr className="my-4" />
-            
-            <FormContainer handleSubmit={this.handleSubmit} />
+            <FadeIn>
+              <FormContainer handleSubmit={this.handleSubmit} />
+            </FadeIn>
           </div>
-        </FadeInDown>
+        </FadeIn>
         
       </div>
    
