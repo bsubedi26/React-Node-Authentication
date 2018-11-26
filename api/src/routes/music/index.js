@@ -1,6 +1,5 @@
-// Initializes the `comment` service on path `/comment`
 const createService = require('feathers-knex')
-const createModel = require('../../models/comment.model')
+const createModel = require('../../models/music.model')
 const hooks = require('./hooks')
 const schema = require('./schema')
 
@@ -9,16 +8,16 @@ module.exports = function (app) {
   const paginate = app.get('paginate')
 
   const options = {
-    name: 'comment',
+    name: 'music',
     Model,
     paginate
   }
 
   // Initialize our service with any options it requires
-  app.use('/comment', createService(options))
+  app.use('/music', createService(options))
 
   // Get our initialized service so that we can register hooks and filters
-  const service = app.service('comment')
+  const service = app.service('music')
 
   app.utils.validate(service, schema)
 

@@ -12,10 +12,14 @@ const socketio = require('@feathersjs/socketio')
 
 const middleware = require('./middleware')
 const routes = require('./routes')
+const services = require('./services')
+const utils = require('./utils')
 const appHooks = require('./app.hooks')
 const channels = require('./channels')
 
 const knex = require('./knex')
+
+const authentication = require('./authentication')
 
 const app = express(feathers())
 
@@ -31,6 +35,8 @@ app.use(favicon(path.join(app.get('public'), 'favicon.ico')))
 // Host the public folder
 app.use('/', express.static(app.get('public')))
 
+// set services to global app
+app.utils = utils
 // Set up Plugins and providers
 app.configure(express.rest())
 app.configure(socketio())
@@ -41,6 +47,8 @@ app.configure(knex)
 app.configure(middleware)
 // Set up our services/api-routes (see `routes/index.js`)
 app.configure(routes)
+app.configure(services)
+app.configure(authentication)
 // Set up event channels (see channels.js)
 app.configure(channels)
 

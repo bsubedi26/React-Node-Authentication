@@ -12,5 +12,29 @@
     "connection": {
       "filename": "api.sqlite"
     }
+  },
+  "authentication": {
+    "secret": "bd9a6986ab0349ef4c6a0c66ea669491a86619f4e399cbad4e549e8ea8977c86bfc5e5cecb0c7cc7bb4ae9ec16ab87d80db21049cd12043c116f0f1009e8fa5e3a0a5eaa06485128a0e2eedffa59374cbe3962b0c41f7caf1edd41c207bc1cb6d27835d0a8c1e89a2f8c521fcf68b6e8b2f60b75527772f36266d00df244abcc612a3c193fb8063697f16d923e76315a77597709764dab442698ef16a2aad4c8cc657cb05666355479331134db4f2d954a451c1b4d1510738e5a1e03dee55497c284891df6cccd5ff5cc0031ae045734f7698dd6d5b4abfc3248e9c087cb2172a127e5dd1f4be0cf44b6594374de7965e9f36e54c0e465ccf38707bba025731d",
+    "strategies": [
+      "jwt",
+      "local"
+    ],
+    "path": "/authentication",
+    "service": "users",
+    "jwt": {
+      "header": {
+        "typ": "access"
+      },
+      "audience": "https://yourdomain.com",
+      "subject": "anonymous",
+      "issuer": "feathers",
+      "algorithm": "HS256",
+      "expiresIn": "1d"
+    },
+    "local": {
+      "entity": "user",
+      "usernameField": "email",
+      "passwordField": "password"
+    }
   }
 }

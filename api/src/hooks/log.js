@@ -2,7 +2,7 @@ const logger = require('../logger')
 const chalk = require('chalk')
 
 // To see more detailed messages, uncomment the following line:
-// logger.level = 'debug';
+// logger.level = 'debug'
 
 const options = {
   before: chalk.yellow.bold,

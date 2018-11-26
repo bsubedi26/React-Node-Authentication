@@ -1,5 +1,6 @@
 // Application hooks that run for every service
 const log = require('./hooks/log')
+const { disableMultiItemChange } = require('feathers-hooks-common/lib/services')
 
 module.exports = {
   before: {
@@ -7,9 +8,15 @@ module.exports = {
     find: [],
     get: [],
     create: [],
-    update: [],
-    patch: [],
-    remove: []
+    update: [
+      disableMultiItemChange()
+    ],
+    patch: [
+      disableMultiItemChange()
+    ],
+    remove: [
+      disableMultiItemChange()
+    ]
   },
 
   after: {
