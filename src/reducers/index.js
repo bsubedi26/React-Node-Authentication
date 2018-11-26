@@ -5,7 +5,7 @@ import auth from './auth'
 
 const config = {
   key: 'primary',
-  storage,
+  storage
 }
 
 // const rootReducer = combineReducers({
@@ -13,7 +13,7 @@ const config = {
 // })
 
 const rootReducer = persistCombineReducers(config, {
-  auth,
+  auth
 })
 
 export default rootReducer

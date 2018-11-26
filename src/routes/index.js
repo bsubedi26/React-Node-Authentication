@@ -8,12 +8,12 @@ import PrivateRoute from './private'
 
 const Container = styled.div`text-align: center;`
 
-function Routes() {
+const Routes = () => {
   return (
     <Router>
       <Container>
         <Header />
-        <Route exact path="/" component={Home} />
+        <Route exact path='/' component={Home} />
         <Route exact path='/login' component={Login} />
         <Route exact path='/signup' component={Signup} />
 

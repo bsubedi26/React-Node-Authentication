@@ -9,12 +9,12 @@ const Container = styled.div`
   /* color: #fff; */
 `
 
-function Header() {
+function Header () {
   return (
     <Container>
       <Navbar />
       {/* <img src={logo} className="redux-logo" alt="logo" /> */}
-      
+
     </Container>
   )
 }

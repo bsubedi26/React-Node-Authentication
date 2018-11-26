@@ -6,11 +6,11 @@ import { persistStore } from 'redux-persist'
 
 const middlewares = [
   ReduxThunk,
-  promiseMiddleware(),
+  promiseMiddleware()
 ]
 const enhancer = [applyMiddleware(...middlewares)]
 
-export default function configureStore(initialState = {}) {
+export default function configureStore (initialState = {}) {
   let store = createStore(rootReducer, initialState, ...enhancer)
   let persistor = persistStore(store)
   return { store, persistor }

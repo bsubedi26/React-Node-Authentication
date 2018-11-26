@@ -7,15 +7,14 @@ import { persistStore } from 'redux-persist'
 
 const middlewares = [
   ReduxThunk,
-  promiseMiddleware(),
+  promiseMiddleware()
 ]
 const enhancers = [
-  applyMiddleware(...middlewares),
+  applyMiddleware(...middlewares)
   // other store enhancers if any
 ]
 
-export default function configureStore(initialState = {}) {
-
+export default function configureStore (initialState = {}) {
   const composeEnhancers = composeWithDevTools(
     {
       // other compose enhancers if any
@@ -33,7 +32,6 @@ export default function configureStore(initialState = {}) {
   }
 
   let persistor = persistStore(store)
-  
 
   return { store, persistor }
 }

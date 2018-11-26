@@ -1,6 +1,8 @@
-import { withFormik } from 'formik';
-import validate from './validate';
-import FormFields from './fields';
+import { withFormik } from 'formik'
+import validate from './validate'
+import FormFields from './fields'
+
+const handleError = error => error
 
 // Wrap our form with the using withFormik HoC
 const FormContainer = withFormik({
@@ -9,20 +11,18 @@ const FormContainer = withFormik({
   // Add a custom validation function (this can be async too!)
   validate: validate,
   // Submission handler
-  handleSubmit: (values, { props, setSubmitting, setErrors /* setValues, setStatus, and other goodies */ }) => {
-    setSubmitting(true);
-    
+  handleSubmit: (values, { props, setSubmitting, setErrors }) => {
+    setSubmitting(true)
+
     props.handleSubmit(values)
-    .then(data => {
+      .then(data => {
         // setSubmitting(false);
-    })
-    .catch(err => {
-      setSubmitting(false);
-        // Maybe even transform your API's errors into the same shape as Formik's!
-        // setErrors(transformMyApiErrors(errors));
-    })
-  },
+      })
+      .catch(err => {
+        setSubmitting(false)
+        handleError(err)
+      })
+  }
 })
 
 export default FormContainer(FormFields)
-

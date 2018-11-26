@@ -1,7 +1,7 @@
 const state = {
   isError: null,
   isPending: false,
-  
+
   accessToken: null,
   email: null,
   id: null,
