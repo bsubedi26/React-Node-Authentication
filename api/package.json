@@ -1,0 +1,57 @@
+{
+  "name": "api",
+  "description": "node server api",
+  "version": "0.0.0",
+  "homepage": "https://homepage.com",
+  "main": "src",
+  "keywords": [
+    "feathers"
+  ],
+  "contributors": [],
+  "bugs": {},
+  "directories": {
+    "lib": "src",
+    "test": "test/"
+  },
+  "engines": {
+    "node": "^9.0.0",
+    "yarn": ">= 0.18.0"
+  },
+  "scripts": {
+    "test": "yarn run eslint && NODE_ENV= yarn run jest",
+    "eslint": "node_modules/.bin/eslint src/. test/. --config .eslintrc.json",
+    "dev": "nodemon src/",
+    "start": "node src/",
+    "jest": "jest",
+    "lint": "node_modules/.bin/standard",
+    "lint:fix": "node_modules/.bin/standard --fix"
+  },
+  "dependencies": {
+    "@feathersjs/configuration": "^2.0.4",
+    "@feathersjs/errors": "^3.3.4",
+    "@feathersjs/express": "^1.2.7",
+    "@feathersjs/feathers": "^3.2.3",
+    "@feathersjs/socketio": "^3.2.7",
+    "compression": "^1.7.3",
+    "cors": "^2.8.4",
+    "feathers-knex": "^4.0.0",
+    "helmet": "^3.13.0",
+    "knex": "^0.15.2",
+    "serve-favicon": "^2.5.0",
+    "sqlite3": "^4.0.2",
+    "winston": "^3.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.9.0",
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.6",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2",
+    "standard": "^12.0.1"
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ]
+  }
+}
