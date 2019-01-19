@@ -9,6 +9,8 @@ const feathers = require('@feathersjs/feathers')
 const configuration = require('@feathersjs/configuration')
 const express = require('@feathersjs/express')
 const socketio = require('@feathersjs/socketio')
+const morgan = require('morgan')
+const feathersLogger = require('feathers-logger')
 
 const middleware = require('./middleware')
 const routes = require('./routes')
@@ -35,12 +37,16 @@ app.use(favicon(path.join(app.get('public'), 'favicon.ico')))
 // Host the public folder
 app.use('/', express.static(app.get('public')))
 
-// set services to global app
+// set utility functions for global access via app
 app.utils = utils
+// logger
+app.configure(feathersLogger(morgan('dev')))
+
 // Set up Plugins and providers
 app.configure(express.rest())
+// sockets
 app.configure(socketio())
-
+// sql db
 app.configure(knex)
 
 // Configure other middleware (see `middleware/index.js`)

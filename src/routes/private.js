@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom'
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const isAuthenticated = !!window.localStorage.getItem('feathers-jwt')
-  console.log('isAuthenticated ', isAuthenticated)
+  // console.log('isAuthenticated ', isAuthenticated)
   return (
     <Route {...rest} render={props => (
       isAuthenticated ? (

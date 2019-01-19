@@ -20,6 +20,7 @@ app.io.on('connect_error', error => {
 const services = reduxifyAllServices(app)
 export { services }
 
+window.app = app
 export default app
 
 // import feathers from '@feathersjs/client/dist/feathers.min'

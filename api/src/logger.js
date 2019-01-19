@@ -3,7 +3,7 @@ const { format, transports } = winston
 
 winston.addColors({
   debug: 'cyan',
-  info: 'yellow',
+  info: 'red',
   error: 'red'
 })
 
