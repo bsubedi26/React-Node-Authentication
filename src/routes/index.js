@@ -1,8 +1,8 @@
 import React from 'react'
-import { Home, Login, Signup, Settings } from 'containers'
+import { Home, Login, Signup, Settings, Events } from 'containers'
 
-import { Header } from 'components'
-import { HashRouter as Router, Route } from 'react-router-dom'
+import Navbar from 'components/Navbar'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import styled from 'styled-components'
 import PrivateRoute from './private'
 
@@ -12,8 +12,9 @@ const Routes = () => {
   return (
     <Router>
       <Container>
-        <Header />
+        <Navbar />
         <Route exact path='/' component={Home} />
+        <Route exact path='/events' component={Events} />
         <Route exact path='/login' component={Login} />
         <Route exact path='/signup' component={Signup} />
 

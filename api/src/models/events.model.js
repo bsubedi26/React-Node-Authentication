@@ -1,10 +1,10 @@
 module.exports = function (app) {
   const db = app.get('knexClient')
-  const tableName = 'users'
+  const tableName = 'events'
   db.schema.hasTable(tableName).then(exists => {
     // if (exists) {
     //   db.schema.table(tableName, table => {
-    //     table.boolean('online')
+
     //   })
     //     .then(() => console.log(`Updated ${tableName} table`))
     //     .catch(e => console.error(`Error updating ${tableName} table`, e))
@@ -12,8 +12,12 @@ module.exports = function (app) {
     if (!exists) {
       db.schema.createTable(tableName, table => {
         table.increments('id')
-        table.string('email').unique()
-        table.string('password')
+        table.string('title').notNullable()
+        table.string('description')
+        table.string('date')
+        table.boolean('checked')
+        table.string('created_by')
+        table.integer('creator_id').unsigned().references('id').inTable('users').onDelete('cascade')
       })
         .then(() => console.log(`Created ${tableName} table`))
         .catch(e => console.error(`Error creating ${tableName} table`, e))

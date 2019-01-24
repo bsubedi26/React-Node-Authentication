@@ -14,7 +14,6 @@ function Header () {
     <Container>
       <Navbar />
       {/* <img src={logo} className="redux-logo" alt="logo" /> */}
-
     </Container>
   )
 }

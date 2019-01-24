@@ -1,29 +1,17 @@
-import { withFormik } from 'formik'
+import React from 'react'
+import { Formik } from 'formik'
 import validate from './validate'
 import FormFields from './fields'
 
-const handleError = error => error
-
-// Wrap our form with the using withFormik HoC
-const FormContainer = withFormik({
-  // Transform outer props into form values
-  mapPropsToValues: props => ({ email: '', password: '' }),
-  // Add a custom validation function (this can be async too!)
-  validate: validate,
-  // Submission handler
-  handleSubmit: (values, { props, setSubmitting, setErrors }) => {
-    console.log('LOGIN!')
-    setSubmitting(true)
-
-    props.handleSubmit(values)
-      .then(data => {
-        // setSubmitting(false);
-      })
-      .catch(err => {
-        setSubmitting(false)
-        handleError(err)
-      })
-  }
-})
-
-export default FormContainer(FormFields)
+export default ({ onSubmit }) => (
+  <Formik
+    initialValues={{ email: '', password: '' }}
+    validate={validate}
+    onSubmit={async (values, actions) => {
+      actions.setSubmitting(true)
+      await onSubmit(values)
+      actions.setSubmitting(false)
+    }}
+    render={FormFields}
+  />
+)

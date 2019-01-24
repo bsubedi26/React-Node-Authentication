@@ -1,8 +1,7 @@
+/* global app */
 import React from 'react'
-import { actions as AuthActions } from 'reducers/auth'
 import FormContainer from './form'
-import { connect } from 'react-redux'
-import { FadeInDown } from 'animate-css-styled-components'
+import { FadeIn } from 'animate-css-styled-components'
 
 class Signup extends React.Component {
   state = {
@@ -10,21 +9,19 @@ class Signup extends React.Component {
     errorMessage: null
   }
 
-  handleSubmit = (formValues) => {
-    const { dispatch, history } = this.props
-
-    return dispatch(AuthActions.signup(formValues))
-      .then(res => {
-        console.log('SUCCESSFUL SIGNUP ', res)
-        this.setState({ error: false, errorMessage: null })
-        history.push('/login')
-        return res
-      })
-      .catch(err => {
-        console.log('.catch ', err)
-        this.setState({ error: true, errorMessage: err.message })
-        return Promise.reject(err)
-      })
+  onSubmit = async (formValues) => {
+    const { history } = this.props
+    console.log('formValues: ', formValues)
+    try {
+      const res = await app.service('users').create(formValues)
+      console.log('SUCCESSFUL SIGNUP ', res)
+      this.setState({ error: false, errorMessage: null })
+      return history.push('/login')
+    } catch (err) {
+      console.log('.catch ', err)
+      this.setState({ error: true, errorMessage: err.message })
+      return Promise.reject(err)
+    }
   }
 
   renderErrorAlert = (message) => {
@@ -38,22 +35,20 @@ class Signup extends React.Component {
   render () {
     return (
       <div>
-        <FadeInDown>
+        <FadeIn>
           <div className='jumbotron'>
             <h1 className='display-3'>Signup Below!</h1>
             <p className='lead'>Join the community to access featured content and information.</p>
-
             { this.state.error ? this.renderErrorAlert(this.state.errorMessage) : null }
             <hr className='my-4' />
-
-            <FormContainer handleSubmit={this.handleSubmit} />
+            <FadeIn>
+              <FormContainer onSubmit={this.onSubmit} />
+            </FadeIn>
           </div>
-        </FadeInDown>
-
+        </FadeIn>
       </div>
-
     )
   }
 }
 
-export default connect(null)(Signup)
+export default Signup

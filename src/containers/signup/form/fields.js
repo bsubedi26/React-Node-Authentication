@@ -1,6 +1,5 @@
 import React from 'react'
 
-// Our inner form component which receives our form's state and updater methods as props
 const FormFields = (props) => {
   const { values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting } = props
 
@@ -34,8 +33,8 @@ const FormFields = (props) => {
         {touched.password && errors.password && <span className='text-danger'>{errors.password}</span>}
       </div>
       <button type='submit' className='btn btn-primary m-2' disabled={isSubmitting}>
-        {isSubmitting ? <i className='p-1 fa fa-spinner fa-spin' /> : null}
-                Submit
+        {isSubmitting && <i className='p-1 fa fa-spinner fa-spin' />}
+        Submit
       </button>
 
     </form>

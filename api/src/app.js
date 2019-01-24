@@ -19,8 +19,6 @@ const channels = require('./channels')
 
 const knex = require('./knex')
 
-const authentication = require('./authentication')
-
 const app = express(feathers())
 
 // Load app configuration
@@ -48,7 +46,6 @@ app.configure(middleware)
 // Set up our services/api-routes (see `routes/index.js`)
 app.configure(routes)
 app.configure(services)
-app.configure(authentication)
 // Set up event channels (see channels.js)
 app.configure(channels)
 

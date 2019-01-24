@@ -19,3 +19,6 @@ body {
   cursor: pointer;
 }
 
+.flex-1-childs > * {
+  flex: 1;
+}

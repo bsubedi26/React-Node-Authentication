@@ -19,9 +19,9 @@ module.exports = function () {
     const logColor = logType(hook.type)
     logger.info(logColor(message))
 
-    // if (hook.error && !hook.result) {
-    //   logger.error(hook.error.stack)
-    // }
+    if (hook.error && !hook.result) {
+      logger.error(hook.error.stack)
+    }
 
     // logger.info('hook.data', hook.data)
     // logger.info('hook.params', hook.params)

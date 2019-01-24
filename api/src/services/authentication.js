@@ -21,6 +21,15 @@ module.exports = function (app) {
       remove: [
         authentication.hooks.authenticate('jwt')
       ]
+    },
+    after: {
+      create: [
+        ctx => {
+          delete ctx.params.user.password // Don't expose sensitive information.
+          ctx.result = Object.assign({}, ctx.result, ctx.params.user)
+          return ctx
+        }
+      ]
     }
   })
 }
